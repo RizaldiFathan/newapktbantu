@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d [%-5level][%class{1}:%line] %msg %n</pattern>
+        </encoder>
+    </appender>
+    
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+<!--        <file>${catalina.home:-.}/logs/APKT-LOG.log</file>-->
+        <file>./logs/APKT-LOG.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- ganti file setiap jam -->
+            <fileNamePattern>
+<!--                ${catalina.home:-.}/logs/APKT-LOG.%d{yyyy-MM-dd_HH}.log.gz-->
+                ./logs/APKT-LOG.%d{yyyy-MM-dd_HH}.log.gz
+            </fileNamePattern>
+            <!-- simpan file selama sebulan (24 * 31) -->
+            <maxHistory>868</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d [%-5level][%class{1}:%line] %msg %n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="rest.iconpln" level="DEBUG">
+        <appender-ref ref="FILE"/>
+    </logger>
+
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+    </root>
+</configuration>
